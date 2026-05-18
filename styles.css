@@ -292,3 +292,40 @@ button:disabled {
 [data-theme="dark"] .sun-icon {
     display: block;
 }
+
+.buyin-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.buyin-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+}
+
+.buyin-add-btn {
+    background-color: var(--success-color);
+}
+
+.buyin-add-btn:hover {
+    background-color: #218838;
+}
+
+.buyin-sub-btn {
+    background-color: var(--danger-color);
+}
+
+.buyin-sub-btn:hover {
+    background-color: var(--danger-hover);
+}

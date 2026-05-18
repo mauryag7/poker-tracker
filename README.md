@@ -1,15 +1,18 @@
 # Poker Tracker
 
-Poker Tracker is a lightweight, mobile-first web application designed to track buy-ins, calculate final chip values, and simplify debt settlement for home poker games. 
+Poker Tracker is a highly polished, lightweight, mobile-first web application designed to track buy-ins, calculate final chip values, and simplify debt settlement for home poker games. 
 
-The application is built as a pure frontend solution using standard HTML, CSS, and JavaScript. It does not require a backend, a database, or a build process, making it incredibly fast and easy to host.
+The application is built as a pure frontend solution using standard HTML, CSS, and JavaScript. It operates entirely on your device, making it lightning fast and entirely free to host.
 
 ## Features
 
+*   **Progressive Web App (PWA):** Install the app directly to your phone's home screen. The built-in service worker caches all files, allowing the app to open instantly and function flawlessly even with zero cell service or offline.
 *   **Configurable Buy-ins:** Set your own conversion rate for chips to dollars at the start of each game.
-*   **Active Game Dashboard:** Track active players, log re-buys with a single tap, and monitor the live total pot.
-*   **Cash-out Calculator:** At the end of the night, input each player's final chip count. The app tracks the total expected chips in play to ensure no chips are missing from the table before allowing calculations.
-*   **Debt Simplification:** A built-in algorithm calculates exactly who owes who money. It automatically pairs the largest debtors with the largest creditors to minimize the number of physical transactions (such as Venmo or cash transfers) needed to settle the game.
+*   **Active Game Dashboard:** Track active players, monitor the live total pot, and add or remove re-buys with large, easily tappable `+` and `-` controls.
+*   **Dark Mode Support:** A sleek dark theme option is available via a toggle icon in the header, making it easy on the eyes in low-light environments.
+*   **Cash-out Calculator:** At the end of the night, input each player's final chip count. A live counter tracks the remaining chips in play to ensure the math perfectly balances before calculating results.
+*   **Debt Simplification:** A built-in algorithm calculates exactly who owes who money. It automatically pairs the largest debtors with the largest creditors to minimize the number of physical transactions needed to settle the game.
+*   **Quick Share Summary:** A single click copies the formatted "Who owes who" summary to your clipboard, ready to paste into your group chat.
 *   **Data Persistence:** All game state is automatically saved to the browser's local storage. If you accidentally refresh the page or close your browser, your game data will immediately reload when you return.
 
 ## Technology Stack
@@ -18,7 +21,7 @@ The application is built as a pure frontend solution using standard HTML, CSS, a
 *   CSS3 (Vanilla, custom styling)
 *   JavaScript (ES6+, Vanilla)
 
-No external libraries, frameworks, or bundlers (like React, Vue, or Vite) are used.
+No external libraries, frameworks, or bundlers are used. 
 
 ## How to Run Locally
 

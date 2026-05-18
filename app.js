@@ -41,6 +41,7 @@ const remainingChipsCount = document.getElementById('remaining-chips-count');
 const finalResultsList = document.getElementById('final-results-list');
 const newGameBtn = document.getElementById('new-game-btn');
 const simplifyDebtsBtn = document.getElementById('simplify-debts-btn');
+const copySummaryBtn = document.getElementById('copy-summary-btn');
 const simplifiedDebtsSection = document.getElementById('simplified-debts-section');
 const debtsList = document.getElementById('debts-list');
 
@@ -107,6 +108,26 @@ function bindEvents() {
         }
     });
 
+    copySummaryBtn.addEventListener('click', () => {
+        let summaryText = "Poker Night Summary:\n\n";
+        const items = debtsList.querySelectorAll('li');
+        if (items.length === 0 || (items.length === 1 && items[0].innerText === 'No debts to settle!')) {
+            summaryText += "No debts to settle!";
+        } else {
+            items.forEach(li => {
+                summaryText += li.innerText + "\n";
+            });
+        }
+        
+        navigator.clipboard.writeText(summaryText).then(() => {
+            const originalText = copySummaryBtn.innerText;
+            copySummaryBtn.innerText = "Copied!";
+            setTimeout(() => {
+                copySummaryBtn.innerText = originalText;
+            }, 2000);
+        });
+    });
+
     newGameBtn.addEventListener('click', () => {
         if (confirm('Are you sure you want to start a new game? This will clear current data.')) {
             state = {
@@ -148,6 +169,7 @@ function addPlayer() {
     });
 
     newPlayerName.value = '';
+    newPlayerName.focus();
     saveState();
     render();
 }
@@ -158,6 +180,17 @@ function addBuyIn(playerId) {
         player.buyIns += 1;
         saveState();
         render();
+    }
+}
+
+function removeBuyIn(playerId) {
+    const player = state.players.find(p => p.id === playerId);
+    if (player && player.buyIns > 1) {
+        if (confirm(`Are you sure you want to remove a buy-in from ${player.name}?`)) {
+            player.buyIns -= 1;
+            saveState();
+            render();
+        }
     }
 }
 
@@ -229,7 +262,10 @@ function renderDashboard() {
                 <span class="player-name">${player.name}</span>
                 <span class="player-buyins">Buy-ins: ${player.buyIns} (Total: $${(player.buyIns * state.config.dollars).toFixed(2)})</span>
             </div>
-            <button class="add-buyin-btn" onclick="addBuyIn('${player.id}')">+1 Buy-in</button>
+            <div class="buyin-controls">
+                <button class="buyin-btn buyin-sub-btn" onclick="removeBuyIn('${player.id}')">-</button>
+                <button class="buyin-btn buyin-add-btn" onclick="addBuyIn('${player.id}')">+</button>
+            </div>
         `;
         activePlayersList.appendChild(div);
     });
@@ -384,6 +420,7 @@ function renderSimplifiedDebts() {
 
 // Expose functions to global scope for inline onclick handlers
 window.addBuyIn = addBuyIn;
+window.removeBuyIn = removeBuyIn;
 
 // Boot
 init();
