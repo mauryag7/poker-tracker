@@ -1,0 +1,45 @@
+{
+  "cookies": [
+    {
+      "name": "next-auth.csrf-token",
+      "value": "c28e96e6dea0cb2e93f2bb278a1d98544225f0dea7c6fbb3355aca461f409621%7Ca57c620090b1dfe505f9ff6537432847da774a7b68dcf45efcf25f9a3a5a6b26",
+      "domain": "localhost",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "next-auth.callback-url",
+      "value": "http%3A%2F%2Flocalhost%3A3000%2Flogin",
+      "domain": "localhost",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "next-auth.session-token",
+      "value": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..7BrXv0ejHdxsgDlo.wqUOpTSkID3nToquOVea0VcWVdEL0Uu4FhcOgR4gNupe5fK5ye-xWLOcPVI3ieiCI3xOK5_3czLgrk_Lvl6-zJ8uzfERB9A_NsQ1Wp5dXrV3szqoutKN4hhk67vYNolh-SdZsLYIs6YLqGab9AP3OIAmUswZwQOX-Q3s3ckOi8_GC3zz5Vf_WkfZJPEHMaqqAZqV_8KG9EFNnQl57wpVedk97xXfmq5H_r4.l0pR8v4W0eLPKd5700s7Iw",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1781735062.775429,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "http://localhost:3000",
+      "localStorage": [
+        {
+          "name": "nextauth.message",
+          "value": "{\"event\":\"session\",\"data\":{\"trigger\":\"getSession\"},\"timestamp\":1779143060}"
+        }
+      ]
+    }
+  ]
+}

@@ -1,47 +1,95 @@
 # Poker Tracker
 
-Poker Tracker is a highly polished, lightweight, mobile-first web application designed to track buy-ins, calculate final chip values, and simplify debt settlement for home poker games. 
-
-The application is built as a pure frontend solution using standard HTML, CSS, and JavaScript. It operates entirely on your device, making it lightning fast and entirely free to host.
+Poker Tracker is a highly polished, mobile-first, full-stack Next.js web application designed to track buy-ins, synchronize real-time player actions, calculate final cash-out values, and simplify debt settlement for home poker games. 
 
 ## Features
 
-*   **Progressive Web App (PWA):** Install the app directly to your phone's home screen. The built-in service worker caches all files, allowing the app to open instantly and function flawlessly even with zero cell service or offline.
-*   **Configurable Buy-ins:** Set your own conversion rate for chips to dollars at the start of each game.
-*   **Active Game Dashboard:** Track active players, monitor the live total pot, and add or remove re-buys with large, easily tappable `+` and `-` controls.
-*   **Dark Mode Support:** A sleek dark theme option is available via a toggle icon in the header, making it easy on the eyes in low-light environments.
-*   **Cash-out Calculator:** At the end of the night, input each player's final chip count. A live counter tracks the remaining chips in play to ensure the math perfectly balances before calculating results.
-*   **Debt Simplification:** A built-in algorithm calculates exactly who owes who money. It automatically pairs the largest debtors with the largest creditors to minimize the number of physical transactions needed to settle the game.
-*   **Quick Share Summary:** A single click copies the formatted "Who owes who" summary to your clipboard, ready to paste into your group chat.
-*   **Data Persistence:** All game state is automatically saved to the browser's local storage. If you accidentally refresh the page or close your browser, your game data will immediately reload when you return.
+*   **Multiplayer Live Synchronization:** Powered by Pusher, player screens update in real-time as the host or players make actions.
+*   **Authentication & Role Management:** Secure sign-in using NextAuth.js credentials provider, supporting Player and Admin roles.
+*   **Configurable Buy-ins:** Set conversion rates (dollars/chips) during game setup. Optionally allow players to manage their own buy-ins or keep permissions restricted to the host.
+*   **Active Game Dashboard:** Monitor the live pot size, total active chips, and easily add or remove buy-ins with confirmation dialogs.
+*   **Theme Support:** Sleek light and dark mode toggles.
+*   **Cash-out Calculator:** At the end of the game, input final chip counts. A live validator ensures the total chips match the buy-ins before final calculations.
+*   **Debt Simplification Algorithm:** Automatically pairs debtors and creditors to minimize the number of physical transactions needed to settle.
+*   **History & Stats:** View previous games and historical stats on your dashboard.
+*   **Admin Dashboard:** Dedicated admin page to view global statistics (games hosted, players active, average pot sizes).
 
 ## Technology Stack
 
-*   HTML5
-*   CSS3 (Vanilla, custom styling)
-*   JavaScript (ES6+, Vanilla)
+*   **Framework:** Next.js (App Router, React 19)
+*   **Database:** Prisma ORM connected to PostgreSQL
+*   **Authentication:** NextAuth.js
+*   **Real-time Updates:** Pusher Channels
+*   **Styling:** Custom Vanilla CSS (Dark & Light modes)
+*   **Testing:** Jest (Unit & API Integration) & Playwright (E2E)
 
-No external libraries, frameworks, or bundlers are used. 
+## Setup & Running Locally
 
-## How to Run Locally
+### Prerequisites
 
-Because it is a pure frontend application without dependencies, you do not need to install Node.js or run a local server to use it.
+*   Node.js (v18+)
+*   A running PostgreSQL database instance (or a Neon database URL)
+*   A Pusher Channels account
 
-1.  Clone this repository or download the source code.
-2.  Navigate to the project folder.
-3.  Double-click the `index.html` file to open it in your default web browser.
+### Installation
+
+1. Clone this repository or download the source code:
+   ```bash
+   git clone <repo-url>
+   cd poker-tracker
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Configure environment variables. Create a `.env` file in the root folder using this template:
+   ```env
+   DATABASE_URL="postgresql://username:password@host:port/database"
+   NEXTAUTH_SECRET="your-nextauth-secret-key"
+   NEXTAUTH_URL="http://localhost:3000"
+
+   NEXT_PUBLIC_PUSHER_KEY="your-pusher-key"
+   PUSHER_APP_ID="your-pusher-app-id"
+   PUSHER_SECRET="your-pusher-secret"
+   NEXT_PUBLIC_PUSHER_CLUSTER="your-pusher-cluster"
+   ```
+
+4. Push the Prisma database schema:
+   ```bash
+   npx prisma db push
+   ```
+
+5. Seed the local database:
+   ```bash
+   npx dotenv -e .env -- npx tsx tests/setup/global-setup.ts
+   ```
+
+6. Start the local Next.js dev server:
+   ```bash
+   npm run dev
+   ```
+   Open `http://localhost:3000` in your browser.
+
+## Testing
+
+### Unit & API Integration Tests (Jest)
+Run unit and route handlers verification:
+```bash
+npm run test
+```
+
+### End-to-End Tests (Playwright)
+Run Playwright browser E2E flow testing:
+```bash
+npm run test:e2e
+```
 
 ## Deployment
 
-This application is designed to be easily hosted on static file hosting services like GitHub Pages.
-
-To deploy via GitHub Pages:
-1.  Push your code to a GitHub repository.
-2.  Navigate to the repository Settings on GitHub.
-3.  Click on "Pages" in the left sidebar.
-4.  Under "Source", select the "main" branch and save.
-5.  Your application will be live at `https://[username].github.io/[repository-name]`.
-
-## License
-
-This project is open-source and available for personal use.
+This app can be deployed easily on **Vercel**:
+1. Push your repository to GitHub.
+2. Link the repository to your Vercel project.
+3. Add the exact environment variables (from your `.env` file) to Vercel's settings.
+4. The deployment build automatically runs `prisma generate` via the `postinstall` script and builds the Next.js production build.

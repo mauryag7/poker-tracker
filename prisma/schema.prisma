@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Player {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("PLAYER")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  gamesHosted Game[]       @relation("HostedGames")
+  gamePlayers GamePlayer[]
+  ledgersFrom Ledger[]     @relation("LedgerFrom")
+  ledgersTo   Ledger[]     @relation("LedgerTo")
+}
+
+model Game {
+  id                String   @id @default(cuid())
+  code              String   @unique
+  chipValue         Float    
+  chipsQty          Int      
+  allowPlayerBuyins Boolean  @default(false)
+  status            String   @default("active")
+  hostId            String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  host      Player       @relation("HostedGames", fields: [hostId], references: [id])
+  players   GamePlayer[]
+  ledgers   Ledger[]
+}
+
+model GamePlayer {
+  id         String   @id @default(cuid())
+  playerId   String
+  gameId     String
+  buyIns     Int      @default(1)
+  finalChips Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  player Player @relation(fields: [playerId], references: [id])
+  game Game @relation(fields: [gameId], references: [id])
+
+  @@unique([playerId, gameId])
+}
+
+model Ledger {
+  id           String   @id @default(cuid())
+  gameId       String
+  fromPlayerId String
+  toPlayerId   String
+  amount       Float
+  createdAt    DateTime @default(now())
+
+  game       Game   @relation(fields: [gameId], references: [id])
+  fromPlayer Player @relation("LedgerFrom", fields: [fromPlayerId], references: [id])
+  toPlayer   Player @relation("LedgerTo", fields: [toPlayerId], references: [id])
+}

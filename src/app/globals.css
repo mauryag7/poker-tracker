@@ -1,0 +1,202 @@
+:root {
+  /* Dark theme (default) */
+  --bg-color: #0b0f19; /* Deep obsidian space blue */
+  --text-color: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --primary-color: #3b82f6; /* Electric blue */
+  --primary-hover: #2563eb;
+  --danger-color: #ef4444; /* Crimson red */
+  --danger-hover: #dc2626;
+  --success-color: #10b981; /* Emerald green */
+  --border-color: #1f2937;
+  --card-bg: #111827; /* Rich slate card */
+  --input-bg: #1f2937;
+  --input-text: #f3f4f6;
+  --player-card-bg: #1e293b;
+  --secondary-bg: #374151;
+  --secondary-hover: #4b5563;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --header-grad: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+}
+
+:root.light {
+  /* Light theme */
+  --bg-color: #f3f4f6; /* Modern off-white */
+  --text-color: #111827; /* Dark slate */
+  --text-secondary: #6b7280;
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --danger-color: #dc2626;
+  --danger-hover: #b91c1c;
+  --success-color: #059669;
+  --border-color: #e5e7eb;
+  --card-bg: #ffffff; /* Clean white card */
+  --input-bg: #f9fafb;
+  --input-text: #111827;
+  --player-card-bg: #f3f4f6;
+  --secondary-bg: #e5e7eb;
+  --secondary-hover: #d1d5db;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --header-grad: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
+}
+
+* {
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.screen {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  border: 1px solid var(--border-color);
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--input-bg);
+  color: var(--input-text);
+  font-size: 16px;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.primary-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.primary-btn:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.secondary-btn {
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.secondary-btn:hover:not(:disabled) {
+  background-color: var(--secondary-hover);
+}
+
+.danger-btn {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.danger-btn:hover:not(:disabled) {
+  background-color: var(--danger-hover);
+}
+
+.player-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: var(--player-card-bg);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.buyin-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.buyin-btn {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 20px;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.buyin-add { 
+  background: var(--success-color); 
+}
+.buyin-add:hover {
+  filter: brightness(1.1);
+}
+
+.buyin-sub { 
+  background: var(--danger-color); 
+}
+.buyin-sub:hover {
+  filter: brightness(1.1);
+}
+
+/* Theme Toggle Button Style */
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  padding: 8px;
+  width: auto;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--secondary-bg);
+}
